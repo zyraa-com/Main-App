@@ -2,8 +2,7 @@ import { ErrorResponse, SuccessResponse } from "@/lib/apiResponse";
 import { getCurrentUser } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/db";
 import { logger } from "@/lib/logger";
-import { Generation } from "@/models/generation";
-import type { IReprompt } from "@/models/generation";
+import { GenerationModel as Generation, type IReprompt } from "@zyraalabs/zyraa-db";
 import type { ActivityEntry } from "@/lib/types";
 
 export async function GET() {

@@ -3,7 +3,7 @@ import { ErrorResponse, SuccessResponse } from "@/lib/apiResponse";
 import { getCurrentUser } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/db";
 import { logger } from "@/lib/logger";
-import { User } from "@/models/user";
+import { UserModel as User } from "@zyraalabs/zyraa-db";
 import { passwordSchema } from "@/lib/validations";
 
 export async function POST(request: Request) {
