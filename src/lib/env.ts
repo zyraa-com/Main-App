@@ -16,3 +16,7 @@ export const JWT_SECRET = process.env.JWT_SECRET ?? "";
 export const IS_PRODUCTION = process.env.NODE_ENV === "production";
 
 export const COOKIE_DOMAIN = process.env.NEXT_PUBLIC_COOKIE_DOMAIN ?? "";
+
+if (IS_PRODUCTION && !COOKIE_DOMAIN) {
+  throw new Error("NEXT_PUBLIC_COOKIE_DOMAIN must be set in production");
+}
