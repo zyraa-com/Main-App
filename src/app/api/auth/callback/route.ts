@@ -1,42 +1,63 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { verifyJWT } from "@/lib/jwt";
+import { UserModel } from "@zyraalabs/zyraa-db";
+import { consumeExchangeCode } from "@/lib/exchange-code";
+import { connectToDatabase } from "@/lib/db";
+import { generateJWT } from "@/lib/jwt";
 import { logger } from "@/lib/logger";
 import { AUTH_SERVICE_URL, COOKIE_DOMAIN, IS_PRODUCTION } from "@/lib/env";
 
+const cookieOpts = {
+  httpOnly: true,
+  secure: IS_PRODUCTION,
+  sameSite: "lax" as const,
+  maxAge: 30 * 24 * 60 * 60,
+  path: "/",
+  ...(COOKIE_DOMAIN ? { domain: COOKIE_DOMAIN } : {}),
+};
+
 export async function GET(request: NextRequest) {
+  const loginUrl = new URL(`${AUTH_SERVICE_URL}/login`);
+
   try {
-    const { searchParams } = new URL(request.url);
-    const token = searchParams.get("token");
+    const code = new URL(request.url).searchParams.get("code");
 
-    if (!token) {
-      logger.warn("auth-callback", "No token provided");
-      return NextResponse.redirect(new URL(`${AUTH_SERVICE_URL}/login`));
+    if (!code) {
+      logger.warn("auth-callback", "No code provided");
+      return NextResponse.redirect(loginUrl);
     }
 
-    const payload = await verifyJWT(token);
-    if (!payload) {
-      logger.error("auth-callback", "Invalid or expired JWT");
-      return NextResponse.redirect(new URL(`${AUTH_SERVICE_URL}/login`));
+    const userId = await consumeExchangeCode(code);
+
+    if (!userId) {
+      logger.warn("auth-callback", "Invalid or expired exchange code");
+      return NextResponse.redirect(loginUrl);
     }
 
-    const redirectUrl = new URL("/dashboard", request.url);
-    const response = NextResponse.redirect(redirectUrl);
+    await connectToDatabase();
 
-    const cookieOpts = {
-      httpOnly: true,
-      secure: IS_PRODUCTION,
-      sameSite: "lax" as const,
-      maxAge: 30 * 24 * 60 * 60,
-      path: "/",
-      ...(COOKIE_DOMAIN ? { domain: COOKIE_DOMAIN } : {}),
-    };
+    const user = await UserModel.findById(userId)
+      .select("email name image emailVerified")
+      .lean();
 
+    if (!user) {
+      logger.error("auth-callback", `User not found for id: ${userId}`);
+      return NextResponse.redirect(loginUrl);
+    }
+
+    const token = await generateJWT({
+      id: String(user._id),
+      email: user.email,
+      name: user.name ?? "",
+      emailVerified: user.emailVerified,
+    });
+
+    const response = NextResponse.redirect(new URL("/dashboard", request.url));
     response.cookies.set("auth-token", token, cookieOpts);
 
-    logger.info("auth-callback", `Auth successful: ${payload.email}`);
+    logger.info("auth-callback", `Auth successful: ${user.email}`);
     return response;
   } catch (error) {
     logger.error("auth-callback", "Callback failed", error);
-    return NextResponse.redirect(new URL(`${AUTH_SERVICE_URL}/login`));
+    return NextResponse.redirect(loginUrl);
   }
 }
