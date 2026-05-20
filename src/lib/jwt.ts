@@ -8,13 +8,6 @@ export interface JWTPayload {
   name: string;
   image?: string;
   emailVerified: boolean;
-  isPremium: boolean;
-  plan: string;
-  trialUsed: boolean;
-  usage: {
-    totalBuilds: number;
-    remainingTrial: number;
-  };
   exp: number;
 }
 
@@ -22,21 +15,15 @@ export function generateJWT(userData: {
   id: string;
   email: string;
   name: string;
+  image?: string;
   emailVerified: boolean;
-  isPremium: boolean;
-  plan: string;
-  trialUsed: boolean;
-  usage: { totalBuilds: number; remainingTrial: number };
 }): string {
   const payload: JWTPayload = {
     sub: userData.id,
     email: userData.email,
     name: userData.name,
+    image: userData.image,
     emailVerified: userData.emailVerified,
-    isPremium: userData.isPremium,
-    plan: userData.plan,
-    trialUsed: userData.trialUsed,
-    usage: userData.usage,
     exp: Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60,
   };
   return jwt.sign(payload, JWT_SECRET);

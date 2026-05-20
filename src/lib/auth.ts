@@ -1,6 +1,9 @@
+import { cache } from "react";
 import { cookies, headers } from "next/headers";
+import { UserModel } from "@zyraalabs/zyraa-db";
 import { verifyJWT } from "./jwt";
 import { extractBearerToken } from "./bearer";
+import { connectToDatabase } from "./db";
 import { logger } from "./logger";
 
 export interface UserInfo {
@@ -18,7 +21,7 @@ export interface UserInfo {
   };
 }
 
-export async function getCurrentUser(): Promise<UserInfo | null> {
+export const getCurrentUser = cache(async (): Promise<UserInfo | null> => {
   try {
     const cookieStore = await cookies();
     const headerStore = await headers();
@@ -32,24 +35,31 @@ export async function getCurrentUser(): Promise<UserInfo | null> {
     const payload = verifyJWT(token);
     if (!payload) return null;
 
+    await connectToDatabase();
+
+    const dbUser = await UserModel.findById(payload.sub)
+      .select("isPremium plan trialUsed usage")
+      .lean();
+
+    if (!dbUser) return null;
+
     return {
       id: payload.sub,
       email: payload.email,
       name: payload.name,
       image: payload.image,
       emailVerified: payload.emailVerified,
-      isPremium: payload.isPremium,
-      plan: payload.plan,
-      trialUsed: payload.trialUsed,
-      usage: payload.usage,
+      isPremium: dbUser.isPremium,
+      plan: dbUser.plan,
+      trialUsed: dbUser.trialUsed,
+      usage: dbUser.usage,
     };
   } catch (error) {
     logger.error("auth-utils", "Failed to get current user", error);
     return null;
   }
-}
+});
 
 export async function isAuthenticated(): Promise<boolean> {
-  const user = await getCurrentUser();
-  return user !== null;
+  return (await getCurrentUser()) !== null;
 }
