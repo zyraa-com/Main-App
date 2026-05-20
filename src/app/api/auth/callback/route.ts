@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.redirect(new URL(`${AUTH_SERVICE_URL}/login`));
     }
 
-    const payload = verifyJWT(token);
+    const payload = await verifyJWT(token);
     if (!payload) {
       logger.error("auth-callback", "Invalid or expired JWT");
       return NextResponse.redirect(new URL(`${AUTH_SERVICE_URL}/login`));

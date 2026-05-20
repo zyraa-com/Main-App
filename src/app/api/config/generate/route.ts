@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
       return ErrorResponse("Unauthorized", 401);
     }
 
-    const configToken = generateConfigToken({
+    const configToken = await generateConfigToken({
       id: user.id,
       email: user.email,
     });

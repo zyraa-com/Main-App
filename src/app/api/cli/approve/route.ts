@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
       return ErrorResponse("Request ID is required", 400);
     }
 
-    const configToken = generateConfigToken({
+    const configToken = await generateConfigToken({
       id: user.id,
       email: user.email,
     });

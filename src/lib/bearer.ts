@@ -5,7 +5,7 @@ export function extractBearerToken(authHeader: string | null): string | null {
   return authHeader.slice(7).trim() || null;
 }
 
-export function verifyBearerToken(authHeader: string | null) {
+export async function verifyBearerToken(authHeader: string | null) {
   const token = extractBearerToken(authHeader);
   if (!token) return null;
   return verifyJWT(token);

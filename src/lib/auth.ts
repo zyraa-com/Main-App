@@ -32,7 +32,7 @@ export const getCurrentUser = cache(async (): Promise<UserInfo | null> => {
 
     if (!token) return null;
 
-    const payload = verifyJWT(token);
+    const payload = await verifyJWT(token);
     if (!payload) return null;
 
     await connectToDatabase();
