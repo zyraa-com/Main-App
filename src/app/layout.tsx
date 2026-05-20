@@ -27,7 +27,7 @@ export default function RootLayout({
       className={cn(
         geist.variable,
         jetbrainsMono.variable,
-        "dark h-full antialiased",
+        "h-full antialiased",
       )}
       suppressHydrationWarning
     >
