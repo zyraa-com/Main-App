@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/dashboard/form/page-header";
+import { Button } from "@/components/ui/button";
 import type { UserInfo } from "@/lib/auth";
 
 function PlanCard({ user }: { user: UserInfo | null }) {
@@ -13,7 +13,9 @@ function PlanCard({ user }: { user: UserInfo | null }) {
         </p>
         <p className="text-[28px] font-extrabold tracking-[-0.03em] leading-none">
           {user?.isPremium ? "$20" : "$0"}{" "}
-          <span className="text-[14px] font-normal text-muted-foreground">/mo</span>
+          <span className="text-[14px] font-normal text-muted-foreground">
+            /mo
+          </span>
         </p>
         <p className="text-[12px] text-fg-subtle mt-2">
           {user?.isPremium

@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
 import { DashboardLogo } from "@/components/dashboard/dashboard-logo";
 import { ThemeToggle } from "@/components/dashboard/theme-toggle";
 import { UserMenu } from "@/components/dashboard/user-menu";
+import { Button } from "@/components/ui/button";
 import type { UserInfo } from "@/lib/auth";
 
 interface TopNavProps {

@@ -19,7 +19,9 @@ export function UserInfoBadge({ name, email, plan }: UserInfoBadgeProps) {
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-[13px] font-semibold truncate">{name}</p>
-        <p className="text-[11px] font-mono text-muted-foreground truncate">{email}</p>
+        <p className="text-[11px] font-mono text-muted-foreground truncate">
+          {email}
+        </p>
       </div>
       <span className="font-mono text-[10px] font-semibold px-2 py-0.5 rounded bg-brand/10 text-brand-l border border-brand/25 shrink-0">
         {plan.toUpperCase()}

@@ -41,7 +41,12 @@ export function Sidebar({ user }: SidebarProps) {
       </div>
 
       <div className="mt-auto p-[10px] border-t border-border">
-        <UserMenu name={user.name} email={user.email} image={user.image} variant="sidebar" />
+        <UserMenu
+          name={user.name}
+          email={user.email}
+          image={user.image}
+          variant="sidebar"
+        />
       </div>
     </aside>
   );

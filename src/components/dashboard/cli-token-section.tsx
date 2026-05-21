@@ -23,7 +23,12 @@ function TokenBlock() {
           terminal
         </span>
         {command && (
-          <Button variant="outline" size="xs" onClick={copy} className="h-5 px-2 text-[10px]">
+          <Button
+            variant="outline"
+            size="xs"
+            onClick={copy}
+            className="h-5 px-2 text-[10px]"
+          >
             <Copy className="size-2.5" />
             {copied ? "Copied!" : "Copy"}
           </Button>
@@ -38,7 +43,8 @@ function TokenBlock() {
           <p className="font-mono text-[12px] text-destructive">{error}</p>
         ) : (
           <pre className="font-mono text-[12px] text-brand-l whitespace-pre select-all leading-relaxed">
-            <span className="text-fg-subtle select-none">$ </span>{command}
+            <span className="text-fg-subtle select-none">$ </span>
+            {command}
           </pre>
         )}
       </div>

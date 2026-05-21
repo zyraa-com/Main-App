@@ -1,4 +1,4 @@
-import { SignJWT, jwtVerify } from "jose";
+import { jwtVerify, SignJWT } from "jose";
 import { APP_URL, JWT_SECRET } from "./env";
 import { logger } from "./logger";
 

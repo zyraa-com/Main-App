@@ -1,8 +1,8 @@
 import arcjet, { detectBot, shield } from "@arcjet/next";
 import { jwtVerify } from "jose";
 import { type NextRequest, NextResponse } from "next/server";
-import { AUTH_SERVICE_URL, JWT_SECRET } from "@/lib/env";
 import { extractBearerToken } from "@/lib/bearer";
+import { AUTH_SERVICE_URL, JWT_SECRET } from "@/lib/env";
 
 const aj = arcjet({
   key: process.env.ARCJET_KEY!,

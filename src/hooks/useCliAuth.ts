@@ -2,9 +2,9 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import type { UserInfo } from "@/lib/auth";
 import { axiosInstance } from "@/lib/axiosInstance";
 import { requestHandler } from "@/lib/requesthandler";
-import type { UserInfo } from "@/lib/auth";
 
 interface ApprovePayload {
   requestId: string;
@@ -32,7 +32,11 @@ export function useCliAuth(initialUser: UserInfo | null) {
 
   const [user] = useState<UserSnapshot | null>(
     initialUser
-      ? { name: initialUser.name, email: initialUser.email, plan: initialUser.plan ?? "FREE" }
+      ? {
+          name: initialUser.name,
+          email: initialUser.email,
+          plan: initialUser.plan ?? "FREE",
+        }
       : null,
   );
   const [approving, setApproving] = useState(false);
@@ -46,7 +50,10 @@ export function useCliAuth(initialUser: UserInfo | null) {
     const result = await approveCliAccess({ requestId });
 
     if (result.code === "error") {
-      const msg = result.error instanceof Error ? result.error.message : "Failed to approve CLI access";
+      const msg =
+        result.error instanceof Error
+          ? result.error.message
+          : "Failed to approve CLI access";
       setError(msg);
       setApproving(false);
       return;

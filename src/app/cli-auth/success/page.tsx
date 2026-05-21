@@ -1,5 +1,5 @@
-import { DashboardLogo } from "@/components/dashboard/dashboard-logo";
 import { SuccessCard } from "@/components/cli-auth/success-card";
+import { DashboardLogo } from "@/components/dashboard/dashboard-logo";
 
 export default function CliAuthSuccessPage() {
   return (

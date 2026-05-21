@@ -21,7 +21,10 @@ function InstallGuide() {
 export function CliView() {
   return (
     <div className="py-7 px-8 max-w-xl">
-      <PageHeader title="CLI Config" sub="Authenticate the Zyra CLI with your account." />
+      <PageHeader
+        title="CLI Config"
+        sub="Authenticate the Zyra CLI with your account."
+      />
       <CliTokenSection />
       <InstallGuide />
     </div>

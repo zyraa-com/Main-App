@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { updatePasswordFn } from "@/lib/api/dashboard";
 import { extractErrorMessage } from "@/lib/query";
-import { passwordSchema, type PasswordInput } from "@/lib/validations";
+import { type PasswordInput, passwordSchema } from "@/lib/validations";
 
 export function usePassword() {
   const [successMessage, setSuccessMessage] = useState("");
@@ -15,7 +15,11 @@ export function usePassword() {
   const form = useForm<PasswordInput>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(passwordSchema as any),
-    defaultValues: { currentPassword: "", newPassword: "", confirmPassword: "" },
+    defaultValues: {
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    },
   });
 
   const onSubmit = form.handleSubmit(async (data) => {
@@ -25,7 +29,9 @@ export function usePassword() {
       setSuccessMessage("Password updated successfully.");
       form.reset();
     } catch (error) {
-      form.setError("root", { message: extractErrorMessage(error, "Failed to update password.") });
+      form.setError("root", {
+        message: extractErrorMessage(error, "Failed to update password."),
+      });
     }
   });
 

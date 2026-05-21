@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
-import { getCurrentUser } from "@/lib/auth";
-import { DashboardLogo } from "@/components/dashboard/dashboard-logo";
 import { CliAuthCard } from "@/components/cli-auth/cli-auth-card";
+import { DashboardLogo } from "@/components/dashboard/dashboard-logo";
+import { getCurrentUser } from "@/lib/auth";
 import { AUTH_SERVICE_URL } from "@/lib/env";
 
 function LoadingFallback() {

@@ -1,8 +1,8 @@
+import { GenerationModel as Generation } from "@zyraalabs/zyraa-db";
 import { ErrorResponse, SuccessResponse } from "@/lib/apiResponse";
 import { getCurrentUser } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/db";
 import { logger } from "@/lib/logger";
-import { GenerationModel as Generation } from "@zyraalabs/zyraa-db";
 
 export async function GET() {
   try {

@@ -6,14 +6,17 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { updateProfileFn } from "@/lib/api/dashboard";
 import { extractErrorMessage } from "@/lib/query";
-import { profileSchema, type ProfileInput } from "@/lib/validations";
+import { type ProfileInput, profileSchema } from "@/lib/validations";
 
 interface UseProfileOptions {
   defaultFirstName?: string;
   defaultLastName?: string;
 }
 
-export function useProfile({ defaultFirstName = "", defaultLastName = "" }: UseProfileOptions = {}) {
+export function useProfile({
+  defaultFirstName = "",
+  defaultLastName = "",
+}: UseProfileOptions = {}) {
   const [successMessage, setSuccessMessage] = useState("");
   const { mutateAsync } = useMutation({ mutationFn: updateProfileFn });
 
@@ -29,7 +32,9 @@ export function useProfile({ defaultFirstName = "", defaultLastName = "" }: UseP
       await mutateAsync(data);
       setSuccessMessage("Profile updated successfully.");
     } catch (error) {
-      form.setError("root", { message: extractErrorMessage(error, "Failed to update profile.") });
+      form.setError("root", {
+        message: extractErrorMessage(error, "Failed to update profile."),
+      });
     }
   });
 

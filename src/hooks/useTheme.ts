@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { type Theme, applyTheme, readTheme, writeTheme } from "@/lib/theme";
+import { applyTheme, readTheme, type Theme, writeTheme } from "@/lib/theme";
 
 const CHANNEL = "zyraa-theme";
 

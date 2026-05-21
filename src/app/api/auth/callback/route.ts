@@ -1,10 +1,10 @@
-import { type NextRequest, NextResponse } from "next/server";
 import { UserModel } from "@zyraalabs/zyraa-db";
-import { consumeExchangeCode } from "@/lib/exchange-code";
+import { type NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/db";
+import { AUTH_SERVICE_URL, COOKIE_DOMAIN, IS_PRODUCTION } from "@/lib/env";
+import { consumeExchangeCode } from "@/lib/exchange-code";
 import { generateJWT } from "@/lib/jwt";
 import { logger } from "@/lib/logger";
-import { AUTH_SERVICE_URL, COOKIE_DOMAIN, IS_PRODUCTION } from "@/lib/env";
 
 const cookieOpts = {
   httpOnly: true,

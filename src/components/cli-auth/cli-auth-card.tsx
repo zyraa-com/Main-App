@@ -2,14 +2,15 @@
 
 import { Terminal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { UserInfoBadge } from "./user-info-badge";
-import { PermissionList } from "./permission-list";
-import { InvalidRequestCard } from "./invalid-request-card";
 import { useCliAuth } from "@/hooks/useCliAuth";
 import type { UserInfo } from "@/lib/auth";
+import { InvalidRequestCard } from "./invalid-request-card";
+import { PermissionList } from "./permission-list";
+import { UserInfoBadge } from "./user-info-badge";
 
 export function CliAuthCard({ user: initialUser }: { user: UserInfo }) {
-  const { requestId, user, approving, error, approve, deny } = useCliAuth(initialUser);
+  const { requestId, user, approving, error, approve, deny } =
+    useCliAuth(initialUser);
 
   return (
     <div className="bg-card border border-border rounded-[14px] p-7 w-full max-w-[400px] shadow-xl shadow-black/20">
@@ -64,7 +65,12 @@ export function CliAuthCard({ user: initialUser }: { user: UserInfo }) {
             <Button onClick={approve} disabled={approving} className="w-full">
               {approving ? "Approving…" : "Approve Access"}
             </Button>
-            <Button variant="outline" onClick={deny} disabled={approving} className="w-full">
+            <Button
+              variant="outline"
+              onClick={deny}
+              disabled={approving}
+              className="w-full"
+            >
               Deny
             </Button>
           </div>

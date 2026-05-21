@@ -1,7 +1,12 @@
 import { axiosInstance } from "@/lib/axiosInstance";
-import { createQueryConfig, createMutationFn } from "@/lib/query";
-import type { DashboardStats, ActivityEntry, BuildEntry, CreditsData } from "@/lib/types";
-import type { ProfileInput, PasswordInput } from "@/lib/validations";
+import { createMutationFn, createQueryConfig } from "@/lib/query";
+import type {
+  ActivityEntry,
+  BuildEntry,
+  CreditsData,
+  DashboardStats,
+} from "@/lib/types";
+import type { PasswordInput, ProfileInput } from "@/lib/validations";
 
 export const queryKeys = {
   stats: ["dashboard", "stats"] as const,
@@ -31,16 +36,20 @@ export const creditsQuery = createQueryConfig<CreditsData>(
   () => axiosInstance.get("/dashboard/credits"),
 );
 
-export const cliTokenQuery = createQueryConfig<{ token: string; command: string }>(
-  queryKeys.cliToken,
-  () => axiosInstance.post("/config/generate"),
-  { staleTime: Infinity, gcTime: Infinity },
-);
+export const cliTokenQuery = createQueryConfig<{
+  token: string;
+  command: string;
+}>(queryKeys.cliToken, () => axiosInstance.post("/config/generate"), {
+  staleTime: Infinity,
+  gcTime: Infinity,
+});
 
-export const updateProfileFn = createMutationFn<{ message: string }, ProfileInput>(
-  (data) => axiosInstance.patch("/dashboard/profile", data),
-);
+export const updateProfileFn = createMutationFn<
+  { message: string },
+  ProfileInput
+>((data) => axiosInstance.patch("/dashboard/profile", data));
 
-export const updatePasswordFn = createMutationFn<{ message: string }, PasswordInput>(
-  (data) => axiosInstance.post("/dashboard/password", data),
-);
+export const updatePasswordFn = createMutationFn<
+  { message: string },
+  PasswordInput
+>((data) => axiosInstance.post("/dashboard/password", data));

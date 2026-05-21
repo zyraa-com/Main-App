@@ -1,15 +1,17 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { FormCard } from "@/components/dashboard/form/form-card";
 import { FormField } from "@/components/dashboard/form/form-field";
 import { FormMessage } from "@/components/dashboard/form/form-message";
 import { PageHeader } from "@/components/dashboard/form/page-header";
+import { Button } from "@/components/ui/button";
 import { usePassword } from "@/hooks/dashboard/usePassword";
 
 function PasswordForm() {
   const { form, onSubmit, successMessage } = usePassword();
-  const { formState: { errors, isSubmitting } } = form;
+  const {
+    formState: { errors, isSubmitting },
+  } = form;
 
   return (
     <FormCard title="Change Password" sub="Must be at least 8 characters.">
@@ -45,7 +47,9 @@ function PasswordForm() {
           }}
         />
         {errors.root?.message && <FormMessage message={errors.root.message} />}
-        {successMessage && <FormMessage message={successMessage} isError={false} />}
+        {successMessage && (
+          <FormMessage message={successMessage} isError={false} />
+        )}
         <Button type="submit" variant="brand" size="sm" disabled={isSubmitting}>
           {isSubmitting ? "Updating…" : "Update password"}
         </Button>

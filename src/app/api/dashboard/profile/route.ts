@@ -1,8 +1,8 @@
+import { UserModel as User } from "@zyraalabs/zyraa-db";
 import { ErrorResponse, SuccessResponse } from "@/lib/apiResponse";
 import { getCurrentUser } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/db";
 import { logger } from "@/lib/logger";
-import { UserModel as User } from "@zyraalabs/zyraa-db";
 import { profileSchema } from "@/lib/validations";
 
 export async function PATCH(request: Request) {
@@ -16,7 +16,10 @@ export async function PATCH(request: Request) {
     const body = await request.json();
     const parsed = profileSchema.safeParse(body);
     if (!parsed.success) {
-      return ErrorResponse(parsed.error.issues[0]?.message ?? "Invalid input", 400);
+      return ErrorResponse(
+        parsed.error.issues[0]?.message ?? "Invalid input",
+        400,
+      );
     }
 
     const { firstName, lastName } = parsed.data;

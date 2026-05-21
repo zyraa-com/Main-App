@@ -1,9 +1,9 @@
-import { cache } from "react";
-import { cookies, headers } from "next/headers";
 import { UserModel } from "@zyraalabs/zyraa-db";
-import { verifyJWT } from "./jwt";
+import { cookies, headers } from "next/headers";
+import { cache } from "react";
 import { extractBearerToken } from "./bearer";
 import { connectToDatabase } from "./db";
+import { verifyJWT } from "./jwt";
 import { logger } from "./logger";
 
 export interface UserInfo {

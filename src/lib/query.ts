@@ -1,6 +1,6 @@
-import { isAxiosError } from "axios";
 import type { QueryKey, UseQueryOptions } from "@tanstack/react-query";
 import type { AxiosResponse } from "axios";
+import { isAxiosError } from "axios";
 
 interface ApiResponse<T> {
   data: T;
