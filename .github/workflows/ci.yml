@@ -43,4 +43,5 @@ jobs:
           AUTH_SERVICE_URL: http://localhost:3001
           UPSTASH_REDIS_REST_URL: https://placeholder.upstash.io
           UPSTASH_REDIS_REST_TOKEN: ci-placeholder
-          COOKIE_DOMAIN: localhost
+          COOKIE_DOMAIN: .example.com
+          NEXT_PUBLIC_COOKIE_DOMAIN: .example.com
