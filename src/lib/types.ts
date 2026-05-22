@@ -47,6 +47,7 @@ export interface BuildEntry {
   outputTokens: number;
   durationMs: number;
   createdAt: string;
+  deploymentUrl?: string;
   reprompts: RepromptEntry[];
 }
 

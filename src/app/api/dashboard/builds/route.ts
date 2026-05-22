@@ -21,7 +21,7 @@ export async function GET() {
       .sort({ createdAt: -1 })
       .limit(50)
       .select(
-        "prompt framework filesGenerated inputTokens outputTokens durationMs createdAt reprompts",
+        "prompt framework filesGenerated inputTokens outputTokens durationMs createdAt reprompts deploymentUrl",
       )
       .lean();
 
@@ -37,6 +37,7 @@ export async function GET() {
         outputTokens: b.outputTokens ?? 0,
         durationMs: b.durationMs,
         createdAt: b.createdAt.toISOString(),
+        deploymentUrl: (b as unknown as { deploymentUrl?: string }).deploymentUrl ?? "",
         reprompts: (b.reprompts ?? []).map((r: IReprompt) => ({
           prompt: r.prompt,
           filesChanged: r.filesChanged,

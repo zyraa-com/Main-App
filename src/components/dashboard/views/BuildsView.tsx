@@ -44,6 +44,7 @@ export function BuildsView() {
               outputTokens={b.outputTokens}
               durationMs={b.durationMs}
               createdAt={b.createdAt}
+              deploymentUrl={b.deploymentUrl}
               reprompts={b.reprompts}
             />
           ))}

@@ -1,8 +1,9 @@
 "use client";
 
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, ExternalLink } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 interface Reprompt {
   prompt: string;
@@ -21,6 +22,7 @@ interface BuildItemProps {
   outputTokens: number;
   durationMs: number;
   createdAt: Date | string;
+  deploymentUrl?: string;
   reprompts: Reprompt[];
 }
 
@@ -43,6 +45,7 @@ export function BuildItem({
   outputTokens,
   durationMs,
   createdAt,
+  deploymentUrl,
   reprompts,
 }: BuildItemProps) {
   const [open, setOpen] = useState(false);
@@ -79,8 +82,37 @@ export function BuildItem({
         />
       </button>
 
-      {open && reprompts.length > 0 && (
+      {open && (
         <div className="border-t border-border bg-surface">
+          {deploymentUrl && (
+            <div className="flex items-center gap-3 px-4 pl-9 py-2.5 border-b border-border">
+              <span className="size-1.5 rounded-full bg-success-l shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-[11px] text-fg-subtle font-mono">
+                  Live deployment
+                </p>
+                <Link
+                  href={deploymentUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="font-mono text-[12px] text-brand hover:underline truncate block"
+                >
+                  {deploymentUrl}
+                </Link>
+              </div>
+              <Link
+                href={deploymentUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="text-fg-subtle hover:text-foreground transition-colors"
+              >
+                <ExternalLink className="size-3.5" />
+              </Link>
+            </div>
+          )}
+
           {reprompts.map((r, i) => (
             <div
               key={r.prompt + String(i)}
