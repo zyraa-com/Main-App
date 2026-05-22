@@ -1,5 +1,5 @@
 export const AUTH_SERVICE_URL =
-  process.env.AUTH_SERVICE_URL ?? "http://localhost:3001";
+  process.env.NEXT_PUBLIC_AUTH_SERVICE_URL ?? "http://localhost:3001";
 
 export const HOME_URL =
   process.env.NEXT_PUBLIC_HOME_URL ?? "http://localhost:3000";
