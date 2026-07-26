@@ -12,7 +12,7 @@ function InstallGuide() {
       </p>
       <div className="bg-bg-input border border-border-mid rounded-[6px] px-4 py-3 font-mono text-[12px]">
         <span className="text-brand font-bold">$</span>{" "}
-        <span className="text-foreground">npm install -g zyra-cli</span>
+        <span className="text-foreground">npm install -g zyraa</span>
       </div>
     </div>
   );
